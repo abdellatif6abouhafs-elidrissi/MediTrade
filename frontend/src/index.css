@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/* Custom theme configuration */
+@theme {
+  /* You can add custom theme configuration here */
+}
+
+/* Light Dark Mode - Soft white/gray theme */
+.dark {
+  /* Override dark mode with lighter colors */
+  --tw-bg-opacity: 1;
+}
+
+.dark body {
+  background-color: #f9fafb !important; /* Very light gray */
+}
+
+.dark .bg-gray-800,
+.dark [class*="dark:bg-gray-800"] {
+  background-color: #f3f4f6 !important; /* Light gray */
+}
+
+.dark .bg-gray-900,
+.dark [class*="dark:bg-gray-900"] {
+  background-color: #e5e7eb !important; /* Slightly darker light gray */
+}
+
+.dark .text-gray-300,
+.dark [class*="dark:text-gray-300"] {
+  color: #374151 !important; /* Dark gray text */
+}
+
+.dark .text-gray-400,
+.dark [class*="dark:text-gray-400"] {
+  color: #4b5563 !important; /* Medium gray text */
+}
+
+.dark .border-gray-700,
+.dark [class*="dark:border-gray-700"] {
+  border-color: #d1d5db !important; /* Light gray border */
+}
+
+.dark .hover\:bg-gray-700:hover,
+.dark [class*="dark:hover:bg-gray-700"]:hover {
+  background-color: #e5e7eb !important;
+}
+
+/* Custom utilities */
+.gradient-text {
+  background: linear-gradient(to right, rgb(14, 165, 233), rgb(37, 99, 235));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.card-shadow {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+}
+
+.card-shadow:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
