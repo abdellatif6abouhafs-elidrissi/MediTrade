@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-interface CardProps {
+interface CardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onAnimationStart' | 'onDrag' | 'onDragStart' | 'onDragEnd'> {
   children: React.ReactNode;
   className?: string;
   hover?: boolean;
@@ -12,7 +12,8 @@ const Card: React.FC<CardProps> = ({
   children,
   className = '',
   hover = true,
-  padding = 'md'
+  padding = 'md',
+  ...props
 }) => {
   const paddings = {
     sm: 'p-4',
@@ -27,6 +28,7 @@ const Card: React.FC<CardProps> = ({
       className={`bg-white dark:bg-gray-800 rounded-xl shadow-md ${
         hover ? 'hover:shadow-xl' : ''
       } transition-shadow duration-300 ${paddings[padding]} ${className}`}
+      {...props}
     >
       {children}
     </motion.div>

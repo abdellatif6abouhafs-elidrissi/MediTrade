@@ -13,7 +13,7 @@ const Trade: React.FC = () => {
   const [searchParams] = useSearchParams();
   const symbol = searchParams.get('symbol') || 'BTC';
   const { isAuthenticated, user, updateBalance, fetchUser } = useAuthStore();
-  const { prices, fetchPrices, getPriceBySymbol } = usePriceStore();
+  const { fetchPrices, getPriceBySymbol } = usePriceStore();
   const [tradeType, setTradeType] = useState<'buy' | 'sell'>('buy');
   const [amount, setAmount] = useState('');
   const [loading, setLoading] = useState(false);

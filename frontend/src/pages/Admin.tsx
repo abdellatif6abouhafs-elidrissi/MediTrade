@@ -8,7 +8,6 @@ import {
   Trash2,
   DollarSign,
   UserPlus,
-  ArrowUpDown,
   Edit2,
   Save,
   X

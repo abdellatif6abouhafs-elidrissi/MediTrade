@@ -13,7 +13,9 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
   (config) => {
     console.log('🌐 API REQUEST:', config.method?.toUpperCase(), config.url);
-    console.log('   Full URL:', config.baseURL + config.url);
+    const baseURL = config.baseURL ?? '';
+    const url = config.url ?? '';
+    console.log('   Full URL:', `${baseURL}${url}`);
     console.log('   Headers:', config.headers);
     console.log('   Data:', config.data);
 
