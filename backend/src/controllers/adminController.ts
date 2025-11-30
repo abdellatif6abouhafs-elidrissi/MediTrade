@@ -53,10 +53,14 @@ export const getStats = async (req: AuthRequest, res: Response) => {
     const totalTrades = await Trade.countDocuments();
     const totalTransactions = await Transaction.countDocuments();
 
-    const recentTrades = await Trade.find()
-      .populate('userId', 'name email')
-      .sort({ createdAt: -1 })
-      .limit(10);
+    // Calculate total volume
+    const trades = await Trade.find();
+    const totalVolume = trades.reduce((sum, trade) => sum + trade.total, 0);
+
+    // Get user growth (last 7 days)
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    const newUsers = await User.countDocuments({ createdAt: { $gte: sevenDaysAgo } });
 
     res.status(200).json({
       success: true,
@@ -64,8 +68,138 @@ export const getStats = async (req: AuthRequest, res: Response) => {
         totalUsers,
         totalTrades,
         totalTransactions,
-        recentTrades,
+        totalVolume,
+        newUsers,
       },
+    });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// @desc    Get all trades
+// @route   GET /api/admin/trades
+export const getAllTrades = async (req: AuthRequest, res: Response) => {
+  try {
+    const trades = await Trade.find()
+      .populate('userId', 'name email')
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      count: trades.length,
+      data: trades,
+    });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// @desc    Get all transactions
+// @route   GET /api/admin/transactions
+export const getAllTransactions = async (req: AuthRequest, res: Response) => {
+  try {
+    const transactions = await Transaction.find()
+      .populate('userId', 'name email')
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      count: transactions.length,
+      data: transactions,
+    });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// @desc    Get recent activity
+// @route   GET /api/admin/activity
+export const getRecentActivity = async (req: AuthRequest, res: Response) => {
+  try {
+    const recentTrades = await Trade.find()
+      .populate('userId', 'name email')
+      .sort({ createdAt: -1 })
+      .limit(10);
+
+    const recentTransactions = await Transaction.find()
+      .populate('userId', 'name email')
+      .sort({ createdAt: -1 })
+      .limit(10);
+
+    res.status(200).json({
+      success: true,
+      data: {
+        recentTrades,
+        recentTransactions,
+      },
+    });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// @desc    Update user
+// @route   PUT /api/admin/user/:id
+export const updateUser = async (req: AuthRequest, res: Response) => {
+  try {
+    const { balance, role } = req.body;
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    if (balance !== undefined) user.balance = balance;
+    if (role !== undefined) user.role = role;
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// @desc    Delete trade
+// @route   DELETE /api/admin/trade/:id
+export const deleteTrade = async (req: AuthRequest, res: Response) => {
+  try {
+    const trade = await Trade.findById(req.params.id);
+
+    if (!trade) {
+      return res.status(404).json({ success: false, message: 'Trade not found' });
+    }
+
+    await trade.deleteOne();
+
+    res.status(200).json({
+      success: true,
+      message: 'Trade deleted successfully',
+    });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// @desc    Delete transaction
+// @route   DELETE /api/admin/transaction/:id
+export const deleteTransaction = async (req: AuthRequest, res: Response) => {
+  try {
+    const transaction = await Transaction.findById(req.params.id);
+
+    if (!transaction) {
+      return res.status(404).json({ success: false, message: 'Transaction not found' });
+    }
+
+    await transaction.deleteOne();
+
+    res.status(200).json({
+      success: true,
+      message: 'Transaction deleted successfully',
     });
   } catch (error: any) {
     res.status(500).json({ success: false, message: error.message });

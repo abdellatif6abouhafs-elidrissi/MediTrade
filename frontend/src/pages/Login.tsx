@@ -16,15 +16,32 @@ const Login: React.FC = () => {
   });
   const [error, setError] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    e.stopPropagation();
+
+    console.log('🔵 LOGIN FORM SUBMITTED');
+    console.log('📧 Email:', formData.email);
+    console.log('🔒 Password:', formData.password ? '***' : 'EMPTY');
+    console.log('⏳ Loading state:', loading);
+
     setError('');
 
+    if (!formData.email || !formData.password) {
+      console.error('❌ Email or password is empty');
+      setError('Please enter both email and password');
+      return;
+    }
+
     try {
+      console.log('🚀 Calling login function from authStore...');
       await login(formData.email, formData.password);
+      console.log('✅ Login successful! Navigating to dashboard...');
       navigate('/dashboard');
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Invalid credentials');
+      console.error('❌ Login error:', err);
+      console.error('❌ Error response:', err.response);
+      setError(err.response?.data?.message || err.message || 'Login failed. Please try again.');
     }
   };
 

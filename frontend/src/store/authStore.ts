@@ -33,18 +33,52 @@ export const useAuthStore = create<AuthState>((set) => ({
   loading: false,
 
   login: async (email, password) => {
+    console.log('🟢 authStore.login CALLED');
+    console.log('   Email:', email);
+    console.log('   Password:', password ? '***' : 'EMPTY');
+
     set({ loading: true });
+    console.log('   ⏳ Set loading to TRUE');
+
     try {
-      const { data } = await apiClient.post('/auth/login', { email, password });
+      console.log('   📡 Making API POST request to /auth/login...');
+      console.log('   Request payload:', { email, password: '***' });
+
+      const response = await apiClient.post('/auth/login', { email, password });
+
+      console.log('   ✅ API response received!');
+      console.log('   Response status:', response.status);
+      console.log('   Response data:', response.data);
+
+      const { data } = response;
+
+      if (!data.token) {
+        throw new Error('No token in response');
+      }
+
       localStorage.setItem('token', data.token);
+      console.log('   💾 Token saved to localStorage');
+
       set({
         user: data.user,
         token: data.token,
         isAuthenticated: true,
         loading: false,
       });
-    } catch (error) {
+
+      console.log('   ✅ Auth state updated successfully');
+      console.log('   User:', data.user);
+      console.log('🟢 LOGIN COMPLETE');
+
+    } catch (error: any) {
+      console.error('   ❌ authStore.login ERROR:', error);
+      console.error('   Error message:', error.message);
+      console.error('   Error response:', error.response?.data);
+      console.error('   Error status:', error.response?.status);
+
       set({ loading: false });
+      console.log('   ⏳ Set loading to FALSE');
+
       throw error;
     }
   },
