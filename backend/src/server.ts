@@ -23,6 +23,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Enable CORS
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:5175',
+  'http://localhost:5176',
+  'https://frontend-seven-gamma-60.vercel.app',
+  'https://meditrade-app.vercel.app',
+  process.env.CLIENT_URL,
+].filter(Boolean);
+
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -34,8 +44,13 @@ app.use(
         return callback(null, true);
       }
 
-      // Allow configured CLIENT_URL
-      if (origin === process.env.CLIENT_URL) {
+      // Allow Vercel preview URLs
+      if (origin.match(/^https:\/\/.*\.vercel\.app$/)) {
+        return callback(null, true);
+      }
+
+      // Allow configured origins
+      if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
 
