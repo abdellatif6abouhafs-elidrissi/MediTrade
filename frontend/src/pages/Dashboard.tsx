@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuthStore } from '../store/authStore';
 import { usePriceStore } from '../store/priceStore';
 import useDashboardStore from '../store/dashboardStore';
+import useAchievementStore from '../store/achievementStore';
 import apiClient from '../api/client';
 
 // Premium Components
@@ -12,11 +13,13 @@ import StatsGrid from '../components/dashboard/StatsGrid';
 import PortfolioTable from '../components/dashboard/PortfolioTable';
 import QuickActions from '../components/dashboard/QuickActions';
 import RecentTrades from '../components/dashboard/RecentTrades';
+import AchievementBadges from '../components/dashboard/AchievementBadges';
 import PortfolioAreaChart from '../components/charts/PortfolioAreaChart';
 import AssetAllocationPie from '../components/charts/AssetAllocationPie';
 import NotificationToast from '../components/notifications/NotificationToast';
 import GlassCard from '../components/ui/GlassCard';
 import Skeleton from '../components/ui/Skeleton';
+import Confetti from '../components/ui/Confetti';
 
 // Hooks
 import { usePriceAlerts } from '../hooks/usePriceAlerts';
@@ -69,9 +72,11 @@ const Dashboard: React.FC = () => {
     sortOrder,
     setSorting,
   } = useDashboardStore();
+  const { checkAndUnlock } = useAchievementStore();
   const [trades, setTrades] = useState<Trade[]>([]);
   const [allTrades, setAllTrades] = useState<Trade[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   // Price alerts hook
   const cryptoPrices = useMemo(() =>
@@ -148,6 +153,28 @@ const Dashboard: React.FC = () => {
       calculateTradeStats(allTrades);
     }
   }, [allTrades]);
+
+  // Check achievements when stats change
+  useEffect(() => {
+    if (tradeStats && totalValue > 0) {
+      const unlockedAchievement = checkAndUnlock({
+        totalTrades: tradeStats.totalTrades,
+        totalVolume: tradeStats.totalVolume,
+        winRate: tradeStats.winRate,
+        portfolioValue: totalValue,
+        profitLoss: profitLoss,
+      });
+
+      if (unlockedAchievement) {
+        setShowConfetti(true);
+      }
+    }
+  }, [tradeStats, totalValue, profitLoss]);
+
+  // Handle confetti completion
+  const handleConfettiComplete = useCallback(() => {
+    setShowConfetti(false);
+  }, []);
 
   // Handle timeframe change
   const handleTimeframeChange = (timeframe: '24h' | '7d' | '30d' | '1y') => {
@@ -322,11 +349,15 @@ const Dashboard: React.FC = () => {
                 favoriteSymbols={favoriteSymbols}
                 balance={user?.balance || 0}
               />
+              <AchievementBadges />
               <RecentTrades trades={trades} maxItems={5} />
             </div>
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Confetti Animation */}
+      <Confetti isActive={showConfetti} onComplete={handleConfettiComplete} />
 
       {/* Notification Toast Container */}
       <NotificationToast />

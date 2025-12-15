@@ -4,6 +4,7 @@ import { useThemeStore } from './store/themeStore';
 import { useAuthStore } from './store/authStore';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
+import PriceTicker from './components/ui/PriceTicker';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -30,6 +31,7 @@ function App() {
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
+        <PriceTicker />
         <Navbar />
         <main className="flex-grow">
           <Routes>
