@@ -4,6 +4,7 @@ import { Moon, Sun, Menu, X, TrendingUp } from 'lucide-react';
 import { useThemeStore } from '../../store/themeStore';
 import { useAuthStore } from '../../store/authStore';
 import Button from '../ui/Button';
+import NotificationBell from '../notifications/NotificationBell';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar: React.FC = () => {
@@ -56,6 +57,7 @@ const Navbar: React.FC = () => {
             >
               {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
+            {isAuthenticated && <NotificationBell />}
             {isAuthenticated ? (
               <div className="flex items-center space-x-3">
                 <span className="text-sm text-gray-600 dark:text-gray-400">
@@ -125,6 +127,7 @@ const Navbar: React.FC = () => {
                   >
                     {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                   </button>
+                  {isAuthenticated && <NotificationBell />}
                   {isAuthenticated ? (
                     <Button onClick={handleLogout} variant="outline" size="sm" fullWidth>
                       Logout

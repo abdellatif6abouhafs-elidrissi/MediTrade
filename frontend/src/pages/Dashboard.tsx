@@ -1,12 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Wallet, TrendingUp, Activity, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { usePriceStore } from '../store/priceStore';
-import Card from '../components/ui/Card';
-import Button from '../components/ui/Button';
+import useDashboardStore from '../store/dashboardStore';
 import apiClient from '../api/client';
+
+// Premium Components
+import HeroSection from '../components/dashboard/HeroSection';
+import StatsGrid from '../components/dashboard/StatsGrid';
+import PortfolioTable from '../components/dashboard/PortfolioTable';
+import QuickActions from '../components/dashboard/QuickActions';
+import RecentTrades from '../components/dashboard/RecentTrades';
+import PortfolioAreaChart from '../components/charts/PortfolioAreaChart';
+import AssetAllocationPie from '../components/charts/AssetAllocationPie';
+import NotificationToast from '../components/notifications/NotificationToast';
+import GlassCard from '../components/ui/GlassCard';
+import Skeleton from '../components/ui/Skeleton';
+
+// Hooks
+import { usePriceAlerts } from '../hooks/usePriceAlerts';
 
 interface Trade {
   _id: string;
@@ -18,12 +31,59 @@ interface Trade {
   createdAt: string;
 }
 
+interface PortfolioHolding {
+  symbol: string;
+  amount: number;
+  averagePrice: number;
+}
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const { user, isAuthenticated, fetchUser } = useAuthStore();
   const { prices, fetchPrices, getPriceBySymbol } = usePriceStore();
+  const {
+    portfolioHistory,
+    selectedTimeframe,
+    setTimeframe,
+    generatePortfolioHistory,
+    tradeStats,
+    calculateTradeStats,
+    expandedHolding,
+    toggleHoldingExpanded,
+    sortColumn,
+    sortOrder,
+    setSorting,
+  } = useDashboardStore();
   const [trades, setTrades] = useState<Trade[]>([]);
+  const [allTrades, setAllTrades] = useState<Trade[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Price alerts hook
+  const cryptoPrices = useMemo(() =>
+    prices.map(p => ({
+      symbol: p.symbol,
+      name: p.name,
+      price: p.price,
+      change24h: p.change24h,
+    })),
+    [prices]
+  );
+  usePriceAlerts(cryptoPrices);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -51,16 +111,18 @@ const Dashboard: React.FC = () => {
   const loadTrades = async () => {
     try {
       const { data } = await apiClient.get('/trades/history');
+      setAllTrades(data.data);
       setTrades(data.data.slice(0, 10));
     } catch (error) {
       console.error('Failed to load trades:', error);
     }
   };
 
+  // Calculate portfolio value
   const calculatePortfolioValue = () => {
     if (!user?.portfolio || !prices.length) return user?.balance || 0;
 
-    const portfolioValue = user.portfolio.reduce((total, holding) => {
+    const portfolioValue = user.portfolio.reduce((total: number, holding: PortfolioHolding) => {
       const currentPrice = getPriceBySymbol(holding.symbol);
       return total + (holding.amount * (currentPrice?.price || 0));
     }, 0);
@@ -71,183 +133,203 @@ const Dashboard: React.FC = () => {
   const totalValue = calculatePortfolioValue();
   const initialBalance = 100000;
   const profitLoss = totalValue - initialBalance;
-  const profitLossPercentage = ((profitLoss / initialBalance) * 100).toFixed(2);
+  const profitLossPercentage = (profitLoss / initialBalance) * 100;
+
+  // Generate portfolio history for chart when data is ready
+  useEffect(() => {
+    if (totalValue > 0 && !loading) {
+      generatePortfolioHistory(totalValue, selectedTimeframe);
+    }
+  }, [totalValue, loading, selectedTimeframe]);
+
+  // Calculate trade stats
+  useEffect(() => {
+    if (allTrades.length > 0) {
+      calculateTradeStats(allTrades);
+    }
+  }, [allTrades]);
+
+  // Handle timeframe change
+  const handleTimeframeChange = (timeframe: '24h' | '7d' | '30d' | '1y') => {
+    setTimeframe(timeframe);
+    if (totalValue > 0) {
+      generatePortfolioHistory(totalValue, timeframe);
+    }
+  };
+
+  // Prepare portfolio table data
+  const portfolioTableData = useMemo(() => {
+    if (!user?.portfolio) return [];
+
+    return user.portfolio.map((holding: PortfolioHolding) => {
+      const currentPrice = getPriceBySymbol(holding.symbol);
+      const value = holding.amount * (currentPrice?.price || 0);
+      const gainLoss = value - (holding.amount * holding.averagePrice);
+      const gainLossPercent = holding.averagePrice > 0
+        ? ((currentPrice?.price || 0) - holding.averagePrice) / holding.averagePrice * 100
+        : 0;
+
+      return {
+        symbol: holding.symbol,
+        name: currentPrice?.name || holding.symbol,
+        amount: holding.amount,
+        averagePrice: holding.averagePrice,
+        currentPrice: currentPrice?.price || 0,
+        value,
+        gainLoss,
+        gainLossPercent,
+      };
+    });
+  }, [user?.portfolio, prices]);
+
+  // Prepare asset allocation data
+  const allocationData = useMemo(() => {
+    if (!user?.portfolio || !prices.length) return [];
+
+    const holdings = user.portfolio.map((holding: PortfolioHolding) => {
+      const currentPrice = getPriceBySymbol(holding.symbol);
+      const value = holding.amount * (currentPrice?.price || 0);
+      return {
+        symbol: holding.symbol,
+        name: currentPrice?.name || holding.symbol,
+        value,
+        percentage: 0, // Will be calculated by the component
+      };
+    });
+
+    // Add cash balance
+    if (user.balance > 0) {
+      holdings.push({
+        symbol: 'USD',
+        name: 'US Dollar',
+        value: user.balance,
+        percentage: 0,
+      });
+    }
+
+    return holdings;
+  }, [user?.portfolio, user?.balance, prices]);
+
+  // Favorite symbols for quick actions
+  const favoriteSymbols = useMemo(() => {
+    const symbols = user?.portfolio?.map((h: PortfolioHolding) => h.symbol) || [];
+    const defaultSymbols = ['BTC', 'ETH', 'SOL', 'XRP'];
+    return [...new Set([...symbols, ...defaultSymbols])].slice(0, 4);
+  }, [user?.portfolio]);
+
+  // Calculate period changes for hero section
+  const dailyChange = profitLossPercentage * 0.1; // Simulated daily change
+  const weeklyChange = profitLossPercentage * 0.4; // Simulated weekly change
+  const monthlyChange = profitLossPercentage; // Actual monthly (total) change
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+        <div className="container mx-auto px-4 space-y-6">
+          {/* Hero Skeleton */}
+          <Skeleton className="h-48 w-full rounded-2xl" />
+
+          {/* Charts Skeleton */}
+          <div className="grid lg:grid-cols-3 gap-6">
+            <Skeleton className="lg:col-span-2 h-80 rounded-2xl" />
+            <Skeleton className="h-80 rounded-2xl" />
+          </div>
+
+          {/* Stats Skeleton */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {[...Array(6)].map((_, i) => (
+              <Skeleton key={i} className="h-24 rounded-2xl" />
+            ))}
+          </div>
+
+          {/* Table Skeleton */}
+          <div className="grid lg:grid-cols-3 gap-6">
+            <Skeleton className="lg:col-span-2 h-96 rounded-2xl" />
+            <Skeleton className="h-96 rounded-2xl" />
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-6 md:py-8">
       <div className="container mx-auto px-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="space-y-6"
         >
-          <h1 className="text-4xl font-bold mb-2">Dashboard</h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            Welcome back, {user?.name}
-          </p>
+          {/* Hero Section */}
+          <motion.div variants={itemVariants}>
+            <HeroSection
+              userName={user?.name || 'Trader'}
+              totalValue={totalValue}
+              dailyChange={dailyChange}
+              weeklyChange={weeklyChange}
+              monthlyChange={monthlyChange}
+            />
+          </motion.div>
+
+          {/* Charts Section */}
+          <motion.div variants={itemVariants} className="grid lg:grid-cols-3 gap-6">
+            {/* Portfolio Chart - 2/3 width */}
+            <div className="lg:col-span-2">
+              <GlassCard className="h-full">
+                <PortfolioAreaChart
+                  data={portfolioHistory}
+                  timeframe={selectedTimeframe}
+                  onTimeframeChange={handleTimeframeChange}
+                  height={300}
+                />
+              </GlassCard>
+            </div>
+
+            {/* Asset Allocation - 1/3 width */}
+            <div>
+              <GlassCard className="h-full">
+                <AssetAllocationPie
+                  holdings={allocationData}
+                  showLegend={false}
+                />
+              </GlassCard>
+            </div>
+          </motion.div>
+
+          {/* Stats Grid */}
+          <motion.div variants={itemVariants}>
+            <StatsGrid stats={tradeStats} />
+          </motion.div>
+
+          {/* Portfolio Table & Quick Actions */}
+          <motion.div variants={itemVariants} className="grid lg:grid-cols-3 gap-6">
+            {/* Portfolio Table - 2/3 width */}
+            <div className="lg:col-span-2">
+              <PortfolioTable
+                holdings={portfolioTableData}
+                expandedRow={expandedHolding}
+                onToggleExpand={toggleHoldingExpanded}
+                sortColumn={sortColumn}
+                sortOrder={sortOrder}
+                onSort={setSorting}
+              />
+            </div>
+
+            {/* Quick Actions & Recent Trades - 1/3 width */}
+            <div className="space-y-6">
+              <QuickActions
+                favoriteSymbols={favoriteSymbols}
+                balance={user?.balance || 0}
+              />
+              <RecentTrades trades={trades} maxItems={5} />
+            </div>
+          </motion.div>
         </motion.div>
-
-        {/* Stats Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card>
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Value</div>
-                <div className="text-2xl font-bold">${totalValue.toLocaleString()}</div>
-              </div>
-              <div className="p-3 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
-                <Wallet className="w-6 h-6 text-primary-600" />
-              </div>
-            </div>
-          </Card>
-
-          <Card>
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Available Balance</div>
-                <div className="text-2xl font-bold">${user?.balance.toLocaleString()}</div>
-              </div>
-              <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-lg">
-                <TrendingUp className="w-6 h-6 text-green-600" />
-              </div>
-            </div>
-          </Card>
-
-          <Card>
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Profit/Loss</div>
-                <div className={`text-2xl font-bold ${profitLoss >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                  {profitLoss >= 0 ? '+' : ''}{profitLoss.toLocaleString()}
-                </div>
-              </div>
-              <div className={`p-3 rounded-lg ${profitLoss >= 0 ? 'bg-green-100 dark:bg-green-900/30' : 'bg-red-100 dark:bg-red-900/30'}`}>
-                {profitLoss >= 0 ? (
-                  <ArrowUpRight className="w-6 h-6 text-green-600" />
-                ) : (
-                  <ArrowDownRight className="w-6 h-6 text-red-600" />
-                )}
-              </div>
-            </div>
-            <div className={`text-sm mt-2 ${profitLoss >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-              {profitLoss >= 0 ? '+' : ''}{profitLossPercentage}%
-            </div>
-          </Card>
-
-          <Card>
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Trades</div>
-                <div className="text-2xl font-bold">{trades.length}</div>
-              </div>
-              <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                <Activity className="w-6 h-6 text-blue-600" />
-              </div>
-            </div>
-          </Card>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-6">
-          {/* Portfolio */}
-          <Card>
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold">Portfolio</h2>
-              <Button size="sm" onClick={() => navigate('/prices')}>
-                Trade
-              </Button>
-            </div>
-
-            {user?.portfolio && user.portfolio.length > 0 ? (
-              <div className="space-y-4">
-                {user.portfolio.map((holding) => {
-                  const currentPrice = getPriceBySymbol(holding.symbol);
-                  const currentValue = holding.amount * (currentPrice?.price || 0);
-                  const investedValue = holding.amount * holding.averagePrice;
-                  const gainLoss = currentValue - investedValue;
-                  const gainLossPercent = ((gainLoss / investedValue) * 100).toFixed(2);
-
-                  return (
-                    <div
-                      key={holding.symbol}
-                      className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg"
-                    >
-                      <div>
-                        <div className="font-bold text-lg">{holding.symbol}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">
-                          {holding.amount.toFixed(6)} @ ${holding.averagePrice.toLocaleString()}
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="font-bold">${currentValue.toLocaleString()}</div>
-                        <div className={`text-sm ${gainLoss >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                          {gainLoss >= 0 ? '+' : ''}{gainLossPercent}%
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="text-center py-8 text-gray-600 dark:text-gray-400">
-                <p className="mb-4">No positions yet</p>
-                <Button onClick={() => navigate('/prices')}>
-                  Start Trading
-                </Button>
-              </div>
-            )}
-          </Card>
-
-          {/* Recent Trades */}
-          <Card>
-            <h2 className="text-2xl font-bold mb-6">Recent Trades</h2>
-
-            {trades.length > 0 ? (
-              <div className="space-y-3">
-                {trades.map((trade) => (
-                  <div
-                    key={trade._id}
-                    className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <div className={`px-2 py-1 rounded text-xs font-semibold ${
-                        trade.type === 'buy'
-                          ? 'bg-green-100 dark:bg-green-900/30 text-green-600'
-                          : 'bg-red-100 dark:bg-red-900/30 text-red-600'
-                      }`}>
-                        {trade.type.toUpperCase()}
-                      </div>
-                      <div>
-                        <div className="font-semibold">{trade.symbol}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">
-                          {new Date(trade.createdAt).toLocaleDateString()}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="font-semibold">{trade.amount} {trade.symbol}</div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">
-                        ${trade.total.toLocaleString()}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-8 text-gray-600 dark:text-gray-400">
-                No trades yet
-              </div>
-            )}
-          </Card>
-        </div>
       </div>
+
+      {/* Notification Toast Container */}
+      <NotificationToast />
     </div>
   );
 };
