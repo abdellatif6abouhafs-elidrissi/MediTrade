@@ -41,7 +41,7 @@ const itemVariants = {
 };
 
 const StatsGrid = ({ stats, isLoading = false }: StatsGridProps) => {
-  if (isLoading || !stats) {
+  if (isLoading) {
     return (
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {Array.from({ length: 6 }).map((_, i) => (
@@ -55,13 +55,26 @@ const StatsGrid = ({ stats, isLoading = false }: StatsGridProps) => {
     );
   }
 
+  // Default stats if no trades yet
+  const defaultStats: TradeStats = {
+    totalTrades: 0,
+    profitableTrades: 0,
+    totalVolume: 0,
+    avgTradeSize: 0,
+    bestTrade: null,
+    worstTrade: null,
+    winRate: 0,
+  };
+
+  const displayStats = stats || defaultStats;
+
   const statCards = [
     {
       title: 'Best Trade',
-      value: stats.bestTrade?.symbol || 'N/A',
-      subtitle: stats.bestTrade
-        ? `+${stats.bestTrade.percentage.toFixed(1)}%`
-        : '',
+      value: displayStats.bestTrade?.symbol || 'N/A',
+      subtitle: displayStats.bestTrade
+        ? `+${displayStats.bestTrade.percentage.toFixed(1)}%`
+        : 'No trades yet',
       icon: TrendingUp,
       iconBg: 'from-green-400/20 to-emerald-500/20',
       iconColor: 'text-green-500',
@@ -69,10 +82,10 @@ const StatsGrid = ({ stats, isLoading = false }: StatsGridProps) => {
     },
     {
       title: 'Worst Trade',
-      value: stats.worstTrade?.symbol || 'N/A',
-      subtitle: stats.worstTrade
-        ? `${stats.worstTrade.percentage.toFixed(1)}%`
-        : '',
+      value: displayStats.worstTrade?.symbol || 'N/A',
+      subtitle: displayStats.worstTrade
+        ? `${displayStats.worstTrade.percentage.toFixed(1)}%`
+        : 'No trades yet',
       icon: TrendingDown,
       iconBg: 'from-red-400/20 to-rose-500/20',
       iconColor: 'text-red-500',
@@ -80,16 +93,16 @@ const StatsGrid = ({ stats, isLoading = false }: StatsGridProps) => {
     },
     {
       title: 'Win Rate',
-      value: `${stats.winRate.toFixed(0)}%`,
-      subtitle: `${stats.profitableTrades}/${stats.totalTrades} trades`,
+      value: `${displayStats.winRate.toFixed(0)}%`,
+      subtitle: `${displayStats.profitableTrades}/${displayStats.totalTrades} trades`,
       icon: Target,
       iconBg: 'from-purple-400/20 to-violet-500/20',
       iconColor: 'text-purple-500',
-      valueColor: stats.winRate >= 50 ? 'text-green-500' : 'text-orange-500',
+      valueColor: displayStats.winRate >= 50 ? 'text-green-500' : 'text-orange-500',
     },
     {
       title: 'Total Trades',
-      value: stats.totalTrades.toString(),
+      value: displayStats.totalTrades.toString(),
       subtitle: 'All time',
       icon: Activity,
       iconBg: 'from-blue-400/20 to-cyan-500/20',
@@ -98,7 +111,7 @@ const StatsGrid = ({ stats, isLoading = false }: StatsGridProps) => {
     },
     {
       title: 'Avg Trade Size',
-      value: formatCurrency(stats.avgTradeSize),
+      value: formatCurrency(displayStats.avgTradeSize),
       subtitle: 'Per trade',
       icon: DollarSign,
       iconBg: 'from-amber-400/20 to-yellow-500/20',
@@ -107,7 +120,7 @@ const StatsGrid = ({ stats, isLoading = false }: StatsGridProps) => {
     },
     {
       title: 'Total Volume',
-      value: formatCurrency(stats.totalVolume),
+      value: formatCurrency(displayStats.totalVolume),
       subtitle: 'Traded',
       icon: BarChart3,
       iconBg: 'from-pink-400/20 to-rose-500/20',
