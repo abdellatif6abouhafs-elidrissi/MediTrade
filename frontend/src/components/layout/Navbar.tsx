@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Moon, Sun, Menu, X, TrendingUp, Bell, Trophy } from 'lucide-react';
+import { Moon, Sun, Menu, X, TrendingUp, Bell, Trophy, BarChart3 } from 'lucide-react';
 import { useThemeStore } from '../../store/themeStore';
 import { useAuthStore } from '../../store/authStore';
 import Button from '../ui/Button';
@@ -49,6 +49,12 @@ const Navbar: React.FC = () => {
               <Link to="/achievements" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center gap-1">
                 <Trophy className="w-4 h-4" />
                 Achievements
+              </Link>
+            )}
+            {isAuthenticated && (
+              <Link to="/analytics" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center gap-1">
+                <BarChart3 className="w-4 h-4" />
+                Analytics
               </Link>
             )}
             {isAuthenticated && (
@@ -138,6 +144,12 @@ const Navbar: React.FC = () => {
                   <Link to="/achievements" className="flex items-center gap-2 py-2 text-gray-700 dark:text-gray-300 hover:text-primary-600">
                     <Trophy className="w-4 h-4" />
                     Achievements
+                  </Link>
+                )}
+                {isAuthenticated && (
+                  <Link to="/analytics" className="flex items-center gap-2 py-2 text-gray-700 dark:text-gray-300 hover:text-primary-600">
+                    <BarChart3 className="w-4 h-4" />
+                    Analytics
                   </Link>
                 )}
                 {isAuthenticated && (

@@ -96,6 +96,15 @@ const CommandPalette: React.FC = () => {
         keywords: ['achievements', 'badges', 'rewards', 'trophies', 'milestones'],
       },
       {
+        id: 'analytics',
+        title: 'Portfolio Analytics',
+        description: 'View portfolio performance and insights',
+        icon: <BarChart3 className="w-4 h-4 text-purple-500" />,
+        action: () => navigate('/analytics'),
+        category: 'navigation',
+        keywords: ['analytics', 'portfolio', 'performance', 'charts', 'insights'],
+      },
+      {
         id: 'trade-btc',
         title: 'Trade Bitcoin',
         description: 'Quick trade BTC',
