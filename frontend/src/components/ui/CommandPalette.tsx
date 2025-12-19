@@ -19,6 +19,7 @@ import {
   Bell,
   Star,
   Newspaper,
+  Calculator,
 } from 'lucide-react';
 import { useThemeStore } from '../../store/themeStore';
 import { useAuthStore } from '../../store/authStore';
@@ -123,6 +124,15 @@ const CommandPalette: React.FC = () => {
         action: () => navigate('/news'),
         category: 'navigation',
         keywords: ['news', 'updates', 'crypto', 'articles', 'breaking'],
+      },
+      {
+        id: 'calculator',
+        title: 'Calculator',
+        description: 'Profit calculator, converter, and DCA planner',
+        icon: <Calculator className="w-4 h-4 text-green-500" />,
+        action: () => navigate('/calculator'),
+        category: 'navigation',
+        keywords: ['calculator', 'profit', 'loss', 'convert', 'dca', 'math'],
       },
       {
         id: 'trade-btc',
