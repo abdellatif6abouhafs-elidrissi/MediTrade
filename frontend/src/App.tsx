@@ -14,6 +14,7 @@ import Dashboard from './pages/Dashboard';
 import Wallet from './pages/Wallet';
 import Admin from './pages/Admin';
 import Leaderboard from './pages/Leaderboard';
+import Alerts from './pages/Alerts';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
             <Route path="/wallet" element={<Wallet />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="/alerts" element={<Alerts />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

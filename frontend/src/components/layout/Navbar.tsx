@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Moon, Sun, Menu, X, TrendingUp } from 'lucide-react';
+import { Moon, Sun, Menu, X, TrendingUp, Bell } from 'lucide-react';
 import { useThemeStore } from '../../store/themeStore';
 import { useAuthStore } from '../../store/authStore';
 import Button from '../ui/Button';
@@ -39,6 +39,12 @@ const Navbar: React.FC = () => {
             <Link to="/leaderboard" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
               Leaderboard
             </Link>
+            {isAuthenticated && (
+              <Link to="/alerts" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center gap-1">
+                <Bell className="w-4 h-4" />
+                Alerts
+              </Link>
+            )}
             {isAuthenticated && (
               <>
                 <Link to="/dashboard" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
@@ -116,6 +122,12 @@ const Navbar: React.FC = () => {
                 <Link to="/leaderboard" className="block py-2 text-gray-700 dark:text-gray-300 hover:text-primary-600">
                   Leaderboard
                 </Link>
+                {isAuthenticated && (
+                  <Link to="/alerts" className="flex items-center gap-2 py-2 text-gray-700 dark:text-gray-300 hover:text-primary-600">
+                    <Bell className="w-4 h-4" />
+                    Price Alerts
+                  </Link>
+                )}
                 {isAuthenticated && (
                   <>
                     <Link to="/dashboard" className="block py-2 text-gray-700 dark:text-gray-300 hover:text-primary-600">

@@ -16,6 +16,7 @@ import {
   ArrowRight,
   Zap,
   Trophy,
+  Bell,
 } from 'lucide-react';
 import { useThemeStore } from '../../store/themeStore';
 import { useAuthStore } from '../../store/authStore';
@@ -75,6 +76,15 @@ const CommandPalette: React.FC = () => {
         action: () => navigate('/leaderboard'),
         category: 'navigation',
         keywords: ['leaderboard', 'ranking', 'top', 'traders', 'competition'],
+      },
+      {
+        id: 'alerts',
+        title: 'Price Alerts',
+        description: 'Set alerts for price targets',
+        icon: <Bell className="w-4 h-4 text-orange-500" />,
+        action: () => navigate('/alerts'),
+        category: 'navigation',
+        keywords: ['alerts', 'notification', 'price', 'target', 'bell'],
       },
       {
         id: 'trade-btc',
