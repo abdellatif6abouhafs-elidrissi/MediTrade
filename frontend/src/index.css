@@ -1,48 +1,362 @@
 @import "tailwindcss";
 
+/* Enable class-based dark mode for Tailwind v4 */
+@variant dark (&:where(.dark, .dark *));
+
+/* ============================================
+   GLOBAL STYLES & ENHANCEMENTS
+   ============================================ */
+
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Better Font Rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Focus Styles */
+*:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Smooth Transitions for Theme Change */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
 /* Custom theme configuration */
 @theme {
   /* You can add custom theme configuration here */
 }
 
-/* Light Dark Mode - Soft white/gray theme */
+/* ============================================
+   PROFESSIONAL TRADING DARK THEME
+   ============================================ */
 .dark {
-  /* Override dark mode with lighter colors */
-  --tw-bg-opacity: 1;
+  color-scheme: dark;
 }
 
+/* Main Background - Deep Navy/Slate */
 .dark body {
-  background-color: #f9fafb !important; /* Very light gray */
+  background: linear-gradient(135deg, #0a0f1a 0%, #111827 50%, #0d1321 100%) !important;
+  color: #e2e8f0 !important;
 }
 
-.dark .bg-gray-800,
-.dark [class*="dark:bg-gray-800"] {
-  background-color: #f3f4f6 !important; /* Light gray */
+/* Cards & Containers */
+.dark .bg-white {
+  background-color: rgba(15, 23, 42, 0.95) !important; /* slate-900 with transparency */
+  border: 1px solid rgba(51, 65, 85, 0.5) !important;
 }
 
-.dark .bg-gray-900,
-.dark [class*="dark:bg-gray-900"] {
-  background-color: #e5e7eb !important; /* Slightly darker light gray */
+.dark .bg-gray-50 {
+  background-color: #0f172a !important; /* slate-900 */
 }
 
-.dark .text-gray-300,
-.dark [class*="dark:text-gray-300"] {
-  color: #374151 !important; /* Dark gray text */
+.dark .bg-gray-100 {
+  background-color: #1e293b !important; /* slate-800 */
 }
 
-.dark .text-gray-400,
-.dark [class*="dark:text-gray-400"] {
-  color: #4b5563 !important; /* Medium gray text */
+/* Navbar & Footer */
+.dark nav,
+.dark .bg-gray-800 {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.98) 0%, rgba(15, 23, 42, 0.95) 100%) !important;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.2) !important;
+  backdrop-filter: blur(12px);
 }
 
-.dark .border-gray-700,
-.dark [class*="dark:border-gray-700"] {
-  border-color: #d1d5db !important; /* Light gray border */
+/* Text Colors */
+.dark .text-gray-900 {
+  color: #f1f5f9 !important; /* slate-100 */
 }
 
-.dark .hover\:bg-gray-700:hover,
-.dark [class*="dark:hover:bg-gray-700"]:hover {
-  background-color: #e5e7eb !important;
+.dark .text-gray-700 {
+  color: #cbd5e1 !important; /* slate-300 */
+}
+
+.dark .text-gray-600 {
+  color: #94a3b8 !important; /* slate-400 */
+}
+
+/* Input Fields */
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: rgba(30, 41, 59, 0.8) !important; /* slate-800 */
+  border-color: rgba(71, 85, 105, 0.6) !important; /* slate-600 */
+  color: #f1f5f9 !important;
+}
+
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+  border-color: #3b82f6 !important; /* blue-500 */
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+}
+
+/* Buttons - Glow Effect */
+.dark .bg-primary-600,
+.dark [class*="bg-primary"] {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+/* Cards Hover Effect */
+.dark .hover\:shadow-xl:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Trading Colors - Green for Profit */
+.dark .text-green-600,
+.dark .text-green-500 {
+  color: #22c55e !important; /* Bright green */
+  text-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
+}
+
+.dark .bg-green-100,
+.dark .bg-green-50 {
+  background-color: rgba(34, 197, 94, 0.15) !important;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+/* Trading Colors - Red for Loss */
+.dark .text-red-600,
+.dark .text-red-500 {
+  color: #ef4444 !important; /* Bright red */
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+.dark .bg-red-100,
+.dark .bg-red-50 {
+  background-color: rgba(239, 68, 68, 0.15) !important;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Gradient Text Enhancement */
+.dark .gradient-text {
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 8px rgba(96, 165, 250, 0.4));
+}
+
+/* Price Ticker */
+.dark .bg-gray-900 {
+  background: linear-gradient(90deg, #020617 0%, #0f172a 50%, #020617 100%) !important;
+}
+
+/* Scrollbar */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #3b82f6, #6366f1);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #60a5fa, #818cf8);
+}
+
+/* Table Rows */
+.dark tr:hover {
+  background-color: rgba(59, 130, 246, 0.08) !important;
+}
+
+/* Borders */
+.dark .border-gray-200,
+.dark .border-gray-300 {
+  border-color: rgba(51, 65, 85, 0.5) !important;
+}
+
+/* Selection */
+.dark ::selection {
+  background-color: rgba(59, 130, 246, 0.4);
+  color: #ffffff;
+}
+
+/* ============================================
+   PROFESSIONAL TRADING LIGHT THEME
+   ============================================ */
+
+/* Main Background - Soft Blue-Gray Gradient */
+body {
+  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 50%, #f8fafc 100%) !important;
+  color: #1e293b !important;
+}
+
+/* Cards & Containers - Glassmorphism */
+.bg-white {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(148, 163, 184, 0.2) !important;
+}
+
+.bg-gray-50 {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+}
+
+.bg-gray-100 {
+  background-color: rgba(241, 245, 249, 0.9) !important;
+}
+
+/* Navbar - Frosted Glass */
+nav {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(59, 130, 246, 0.15) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Footer */
+footer {
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%) !important;
+  border-top: 1px solid rgba(148, 163, 184, 0.2) !important;
+}
+
+/* Input Fields - Modern Style */
+input,
+select,
+textarea {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(148, 163, 184, 0.4) !important;
+  transition: all 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15), 0 4px 12px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Cards Hover Effect */
+.hover\:shadow-xl:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 0 20px rgba(59, 130, 246, 0.08) !important;
+  transform: translateY(-2px);
+}
+
+/* Trading Colors - Green for Profit */
+.text-green-600,
+.text-green-500 {
+  color: #059669 !important;
+}
+
+.bg-green-100,
+.bg-green-50 {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.1) 100%) !important;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+/* Trading Colors - Red for Loss */
+.text-red-600,
+.text-red-500 {
+  color: #dc2626 !important;
+}
+
+.bg-red-100,
+.bg-red-50 {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.1) 100%) !important;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+/* Buttons - Subtle Shadow */
+.bg-primary-600,
+[class*="bg-primary"] {
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.25);
+}
+
+.bg-primary-600:hover,
+[class*="bg-primary"]:hover {
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35);
+}
+
+/* Gradient Text - Light Mode */
+.gradient-text {
+  background: linear-gradient(135deg, #0284c7 0%, #3b82f6 50%, #6366f1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Price Ticker - Light Mode */
+.bg-gray-900 {
+  background: linear-gradient(90deg, #1e293b 0%, #334155 50%, #1e293b 100%) !important;
+}
+
+/* Scrollbar - Light Mode */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #94a3b8, #64748b);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #64748b, #475569);
+}
+
+/* Table Rows - Light Mode */
+tr:hover {
+  background-color: rgba(59, 130, 246, 0.04) !important;
+}
+
+/* Selection - Light Mode */
+::selection {
+  background-color: rgba(59, 130, 246, 0.2);
+  color: #1e293b;
+}
+
+/* Primary Colors - Always Visible */
+.text-primary-600,
+.text-primary-500 {
+  color: #2563eb !important;
+}
+
+.text-blue-500 {
+  color: #3b82f6 !important;
+}
+
+.text-blue-400 {
+  color: #60a5fa !important;
+}
+
+.dark .text-primary-600,
+.dark .text-primary-500 {
+  color: #60a5fa !important;
+}
+
+.dark .text-blue-500 {
+  color: #3b82f6 !important;
+}
+
+.dark .text-blue-400 {
+  color: #60a5fa !important;
+}
+
+/* Glass Card Light Mode Enhancement */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border: 1px solid rgba(148, 163, 184, 0.2) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
 }
 
 /* Custom utilities */

@@ -13,6 +13,7 @@ import Trade from './pages/Trade';
 import Dashboard from './pages/Dashboard';
 import Wallet from './pages/Wallet';
 import Admin from './pages/Admin';
+import NotFound from './pages/NotFound';
 
 function App() {
   const { isDark, setTheme } = useThemeStore();
@@ -30,7 +31,7 @@ function App() {
 
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
         <PriceTicker />
         <Navbar />
         <main className="flex-grow">
@@ -43,6 +44,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/wallet" element={<Wallet />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />

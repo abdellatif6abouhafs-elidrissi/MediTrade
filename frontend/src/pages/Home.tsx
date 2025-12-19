@@ -144,7 +144,7 @@ const Home: React.FC = () => {
                 transition={{ delay: index * 0.1 }}
                 className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 hover:shadow-xl transition-shadow"
               >
-                <div className="text-primary-600 mb-4">{feature.icon}</div>
+                <div className="mb-4 text-blue-500 dark:text-blue-400">{feature.icon}</div>
                 <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
                 <p className="text-gray-600 dark:text-gray-400">{feature.description}</p>
               </motion.div>

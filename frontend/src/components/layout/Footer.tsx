@@ -1,39 +1,195 @@
 import React from 'react';
-import { TrendingUp } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { TrendingUp, Twitter, Github, Linkedin, Mail, Globe, Shield, Award } from 'lucide-react';
 
 const Footer: React.FC = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-auto">
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="col-span-1 md:col-span-2">
+    <footer className="bg-gray-900 dark:bg-black text-white mt-auto">
+      {/* Main Footer */}
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+          {/* Brand Section */}
+          <div className="lg:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <TrendingUp className="w-6 h-6 text-primary-600" />
-              <span className="text-xl font-bold gradient-text">MediTrade</span>
+              <TrendingUp className="w-8 h-8 text-blue-500" />
+              <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                MediTrade
+              </span>
             </div>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Your trusted platform for cryptocurrency trading simulation. Practice trading with virtual money and learn the markets risk-free.
+            <p className="text-gray-400 text-sm mb-6 max-w-md">
+              The most advanced cryptocurrency trading simulation platform. Learn to trade with $100,000 virtual money and master the markets without any financial risk.
             </p>
+
+            {/* Social Links */}
+            <div className="flex space-x-4">
+              <a href="#" className="w-10 h-10 rounded-full bg-gray-800 hover:bg-blue-600 flex items-center justify-center transition-all duration-300 hover:scale-110">
+                <Twitter className="w-5 h-5" />
+              </a>
+              <a href="#" className="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center transition-all duration-300 hover:scale-110">
+                <Github className="w-5 h-5" />
+              </a>
+              <a href="#" className="w-10 h-10 rounded-full bg-gray-800 hover:bg-blue-700 flex items-center justify-center transition-all duration-300 hover:scale-110">
+                <Linkedin className="w-5 h-5" />
+              </a>
+              <a href="#" className="w-10 h-10 rounded-full bg-gray-800 hover:bg-red-600 flex items-center justify-center transition-all duration-300 hover:scale-110">
+                <Mail className="w-5 h-5" />
+              </a>
+            </div>
           </div>
+
+          {/* Quick Links */}
           <div>
-            <h3 className="font-semibold mb-4 text-gray-900 dark:text-white">Quick Links</h3>
-            <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-              <li><a href="/prices" className="hover:text-primary-600">Prices</a></li>
-              <li><a href="/trade" className="hover:text-primary-600">Trade</a></li>
-              <li><a href="/dashboard" className="hover:text-primary-600">Dashboard</a></li>
+            <h3 className="font-semibold text-lg mb-4 text-white">Platform</h3>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <Link to="/prices" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2">
+                  <span className="w-1 h-1 bg-blue-500 rounded-full"></span>
+                  Live Prices
+                </Link>
+              </li>
+              <li>
+                <Link to="/trade" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2">
+                  <span className="w-1 h-1 bg-blue-500 rounded-full"></span>
+                  Trade Now
+                </Link>
+              </li>
+              <li>
+                <Link to="/dashboard" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2">
+                  <span className="w-1 h-1 bg-blue-500 rounded-full"></span>
+                  Dashboard
+                </Link>
+              </li>
+              <li>
+                <Link to="/wallet" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2">
+                  <span className="w-1 h-1 bg-blue-500 rounded-full"></span>
+                  Wallet
+                </Link>
+              </li>
             </ul>
           </div>
+
+          {/* Resources */}
           <div>
-            <h3 className="font-semibold mb-4 text-gray-900 dark:text-white">Legal</h3>
-            <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-              <li><a href="#" className="hover:text-primary-600">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-primary-600">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-primary-600">Disclaimer</a></li>
+            <h3 className="font-semibold text-lg mb-4 text-white">Resources</h3>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2">
+                  <span className="w-1 h-1 bg-green-500 rounded-full"></span>
+                  Trading Guide
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2">
+                  <span className="w-1 h-1 bg-green-500 rounded-full"></span>
+                  API Documentation
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2">
+                  <span className="w-1 h-1 bg-green-500 rounded-full"></span>
+                  Market Analysis
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2">
+                  <span className="w-1 h-1 bg-green-500 rounded-full"></span>
+                  FAQ
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h3 className="font-semibold text-lg mb-4 text-white">Legal</h3>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2">
+                  <span className="w-1 h-1 bg-purple-500 rounded-full"></span>
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2">
+                  <span className="w-1 h-1 bg-purple-500 rounded-full"></span>
+                  Terms of Service
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2">
+                  <span className="w-1 h-1 bg-purple-500 rounded-full"></span>
+                  Cookie Policy
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2">
+                  <span className="w-1 h-1 bg-purple-500 rounded-full"></span>
+                  Disclaimer
+                </a>
+              </li>
             </ul>
           </div>
         </div>
-        <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 text-center text-sm text-gray-600 dark:text-gray-400">
-          <p>&copy; 2024 MediTrade. All rights reserved. This is a simulation platform for educational purposes only.</p>
+
+        {/* Features Bar */}
+        <div className="mt-12 pt-8 border-t border-gray-800">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                <Shield className="w-5 h-5 text-blue-400" />
+              </div>
+              <div>
+                <div className="text-sm font-medium text-white">100% Secure</div>
+                <div className="text-xs text-gray-500">Protected Platform</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">
+                <TrendingUp className="w-5 h-5 text-green-400" />
+              </div>
+              <div>
+                <div className="text-sm font-medium text-white">Real-time Data</div>
+                <div className="text-xs text-gray-500">Live Market Prices</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                <Award className="w-5 h-5 text-purple-400" />
+              </div>
+              <div>
+                <div className="text-sm font-medium text-white">Risk Free</div>
+                <div className="text-xs text-gray-500">Virtual Trading</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-yellow-500/20 flex items-center justify-center">
+                <Globe className="w-5 h-5 text-yellow-400" />
+              </div>
+              <div>
+                <div className="text-sm font-medium text-white">24/7 Access</div>
+                <div className="text-xs text-gray-500">Trade Anytime</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Bar */}
+      <div className="border-t border-gray-800 bg-black/50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-gray-500">
+              &copy; {currentYear} MediTrade. All rights reserved. Simulation platform for educational purposes only.
+            </p>
+            <div className="flex items-center gap-4 text-sm text-gray-500">
+              <span className="flex items-center gap-1">
+                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                All Systems Operational
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
