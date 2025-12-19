@@ -41,7 +41,7 @@ function App() {
       <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
         <PriceTicker />
         <Navbar />
-        <main className="flex-grow">
+        <main className="flex-grow flex flex-col min-h-[calc(100vh-200px)]">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
