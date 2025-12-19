@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Home, TrendingUp, ArrowLeft } from 'lucide-react';
+import { Home, TrendingUp } from 'lucide-react';
 import Button from '../components/ui/Button';
 
 const NotFound: React.FC = () => {
