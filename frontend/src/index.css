@@ -65,11 +65,11 @@ body {
 }
 
 .dark .bg-gray-50 {
-  background-color: #0f172a !important; /* slate-900 */
+  background: #0f172a !important; /* slate-900 */
 }
 
 .dark .bg-gray-100 {
-  background-color: #1e293b !important; /* slate-800 */
+  background: #1e293b !important; /* slate-800 */
 }
 
 /* Navbar & Footer */
@@ -218,7 +218,7 @@ body {
 }
 
 .bg-gray-100 {
-  background-color: rgba(241, 245, 249, 0.9) !important;
+  background: rgba(241, 245, 249, 0.9) !important;
 }
 
 /* Navbar - Frosted Glass */
