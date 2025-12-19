@@ -17,6 +17,7 @@ import walletRoutes from './routes/walletRoutes';
 import adminRoutes from './routes/adminRoutes';
 import leaderboardRoutes from './routes/leaderboardRoutes';
 import alertRoutes from './routes/alertRoutes';
+import achievementRoutes from './routes/achievementRoutes';
 
 const app: Application = express();
 
@@ -39,6 +40,7 @@ app.use('/api/wallet', walletRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
 app.use('/api/alerts', alertRoutes);
+app.use('/api/achievements', achievementRoutes);
 
 // Health check route
 app.get('/api/health', (req, res) => {

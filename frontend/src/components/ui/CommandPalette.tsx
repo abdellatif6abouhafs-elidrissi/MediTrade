@@ -87,6 +87,15 @@ const CommandPalette: React.FC = () => {
         keywords: ['alerts', 'notification', 'price', 'target', 'bell'],
       },
       {
+        id: 'achievements',
+        title: 'Achievements',
+        description: 'View your badges and achievements',
+        icon: <Trophy className="w-4 h-4 text-yellow-500" />,
+        action: () => navigate('/achievements'),
+        category: 'navigation',
+        keywords: ['achievements', 'badges', 'rewards', 'trophies', 'milestones'],
+      },
+      {
         id: 'trade-btc',
         title: 'Trade Bitcoin',
         description: 'Quick trade BTC',

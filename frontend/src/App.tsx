@@ -15,6 +15,7 @@ import Wallet from './pages/Wallet';
 import Admin from './pages/Admin';
 import Leaderboard from './pages/Leaderboard';
 import Alerts from './pages/Alerts';
+import Achievements from './pages/Achievements';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
             <Route path="/admin" element={<Admin />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/alerts" element={<Alerts />} />
+            <Route path="/achievements" element={<Achievements />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
