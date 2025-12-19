@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -9,7 +9,14 @@ import Card from '../components/ui/Card';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const { login, loading } = useAuthStore();
+  const { login, loading, isAuthenticated } = useAuthStore();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard');
+    }
+  }, [isAuthenticated, navigate]);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
