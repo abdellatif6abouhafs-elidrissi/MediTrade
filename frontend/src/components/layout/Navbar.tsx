@@ -36,6 +36,9 @@ const Navbar: React.FC = () => {
             <Link to="/trade" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
               Trade
             </Link>
+            <Link to="/leaderboard" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+              Leaderboard
+            </Link>
             {isAuthenticated && (
               <>
                 <Link to="/dashboard" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
@@ -109,6 +112,9 @@ const Navbar: React.FC = () => {
                 </Link>
                 <Link to="/trade" className="block py-2 text-gray-700 dark:text-gray-300 hover:text-primary-600">
                   Trade
+                </Link>
+                <Link to="/leaderboard" className="block py-2 text-gray-700 dark:text-gray-300 hover:text-primary-600">
+                  Leaderboard
                 </Link>
                 {isAuthenticated && (
                   <>

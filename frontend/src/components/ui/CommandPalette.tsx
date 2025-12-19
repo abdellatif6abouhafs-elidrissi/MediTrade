@@ -15,6 +15,7 @@ import {
   Command,
   ArrowRight,
   Zap,
+  Trophy,
 } from 'lucide-react';
 import { useThemeStore } from '../../store/themeStore';
 import { useAuthStore } from '../../store/authStore';
@@ -65,6 +66,15 @@ const CommandPalette: React.FC = () => {
         action: () => navigate('/trade'),
         category: 'navigation',
         keywords: ['trade', 'buy', 'sell', 'exchange'],
+      },
+      {
+        id: 'leaderboard',
+        title: 'View Leaderboard',
+        description: 'See top traders ranking',
+        icon: <Trophy className="w-4 h-4 text-yellow-500" />,
+        action: () => navigate('/leaderboard'),
+        category: 'navigation',
+        keywords: ['leaderboard', 'ranking', 'top', 'traders', 'competition'],
       },
       {
         id: 'trade-btc',

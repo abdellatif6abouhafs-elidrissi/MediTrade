@@ -13,6 +13,7 @@ import Trade from './pages/Trade';
 import Dashboard from './pages/Dashboard';
 import Wallet from './pages/Wallet';
 import Admin from './pages/Admin';
+import Leaderboard from './pages/Leaderboard';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/wallet" element={<Wallet />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
