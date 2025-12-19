@@ -18,6 +18,7 @@ import Alerts from './pages/Alerts';
 import Achievements from './pages/Achievements';
 import Analytics from './pages/Analytics';
 import Watchlist from './pages/Watchlist';
+import News from './pages/News';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
             <Route path="/achievements" element={<Achievements />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/watchlist" element={<Watchlist />} />
+            <Route path="/news" element={<News />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

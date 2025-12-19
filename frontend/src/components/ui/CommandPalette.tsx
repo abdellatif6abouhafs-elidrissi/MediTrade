@@ -18,6 +18,7 @@ import {
   Trophy,
   Bell,
   Star,
+  Newspaper,
 } from 'lucide-react';
 import { useThemeStore } from '../../store/themeStore';
 import { useAuthStore } from '../../store/authStore';
@@ -113,6 +114,15 @@ const CommandPalette: React.FC = () => {
         action: () => navigate('/watchlist'),
         category: 'navigation',
         keywords: ['watchlist', 'favorites', 'track', 'coins', 'star'],
+      },
+      {
+        id: 'news',
+        title: 'Crypto News',
+        description: 'Latest cryptocurrency news and updates',
+        icon: <Newspaper className="w-4 h-4 text-blue-500" />,
+        action: () => navigate('/news'),
+        category: 'navigation',
+        keywords: ['news', 'updates', 'crypto', 'articles', 'breaking'],
       },
       {
         id: 'trade-btc',
