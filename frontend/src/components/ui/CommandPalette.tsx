@@ -17,6 +17,7 @@ import {
   Zap,
   Trophy,
   Bell,
+  Star,
 } from 'lucide-react';
 import { useThemeStore } from '../../store/themeStore';
 import { useAuthStore } from '../../store/authStore';
@@ -103,6 +104,15 @@ const CommandPalette: React.FC = () => {
         action: () => navigate('/analytics'),
         category: 'navigation',
         keywords: ['analytics', 'portfolio', 'performance', 'charts', 'insights'],
+      },
+      {
+        id: 'watchlist',
+        title: 'Watchlist',
+        description: 'Track your favorite coins',
+        icon: <Star className="w-4 h-4 text-yellow-500" />,
+        action: () => navigate('/watchlist'),
+        category: 'navigation',
+        keywords: ['watchlist', 'favorites', 'track', 'coins', 'star'],
       },
       {
         id: 'trade-btc',
