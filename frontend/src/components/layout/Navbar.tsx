@@ -5,6 +5,7 @@ import { useThemeStore } from '../../store/themeStore';
 import { useAuthStore } from '../../store/authStore';
 import Button from '../ui/Button';
 import NotificationBell from '../notifications/NotificationBell';
+import CommandPalette from '../ui/CommandPalette';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar: React.FC = () => {
@@ -51,6 +52,7 @@ const Navbar: React.FC = () => {
 
           {/* Right Side */}
           <div className="hidden md:flex items-center space-x-4">
+            <CommandPalette />
             <button
               onClick={toggleTheme}
               className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
