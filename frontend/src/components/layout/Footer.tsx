@@ -134,42 +134,42 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Features Bar */}
-        <div className="mt-12 pt-8 border-t border-gray-800">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                <Shield className="w-5 h-5 text-blue-400" />
+        <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-800">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
               </div>
-              <div>
-                <div className="text-sm font-medium text-white">100% Secure</div>
-                <div className="text-xs text-gray-500">Protected Platform</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-green-400" />
-              </div>
-              <div>
-                <div className="text-sm font-medium text-white">Real-time Data</div>
-                <div className="text-xs text-gray-500">Live Market Prices</div>
+              <div className="min-w-0">
+                <div className="text-xs sm:text-sm font-medium text-white truncate">100% Secure</div>
+                <div className="text-[10px] sm:text-xs text-gray-500 truncate">Protected Platform</div>
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
-                <Award className="w-5 h-5 text-purple-400" />
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-green-400" />
               </div>
-              <div>
-                <div className="text-sm font-medium text-white">Risk Free</div>
-                <div className="text-xs text-gray-500">Virtual Trading</div>
+              <div className="min-w-0">
+                <div className="text-xs sm:text-sm font-medium text-white truncate">Real-time Data</div>
+                <div className="text-[10px] sm:text-xs text-gray-500 truncate">Live Prices</div>
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-yellow-500/20 flex items-center justify-center">
-                <Globe className="w-5 h-5 text-yellow-400" />
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0">
+                <Award className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
               </div>
-              <div>
-                <div className="text-sm font-medium text-white">24/7 Access</div>
-                <div className="text-xs text-gray-500">Trade Anytime</div>
+              <div className="min-w-0">
+                <div className="text-xs sm:text-sm font-medium text-white truncate">Risk Free</div>
+                <div className="text-[10px] sm:text-xs text-gray-500 truncate">Virtual Trading</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-yellow-500/20 flex items-center justify-center flex-shrink-0">
+                <Globe className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-xs sm:text-sm font-medium text-white truncate">24/7 Access</div>
+                <div className="text-[10px] sm:text-xs text-gray-500 truncate">Trade Anytime</div>
               </div>
             </div>
           </div>
@@ -178,12 +178,12 @@ const Footer: React.FC = () => {
 
       {/* Bottom Bar */}
       <div className="border-t border-gray-800 bg-black/50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-gray-500">
-              &copy; {currentYear} MediTrade. All rights reserved. Simulation platform for educational purposes only.
+        <div className="container mx-auto px-4 py-3 sm:py-4">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-2 sm:gap-4">
+            <p className="text-xs sm:text-sm text-gray-500 text-center md:text-left">
+              &copy; {currentYear} MediTrade. All rights reserved.
             </p>
-            <div className="flex items-center gap-4 text-sm text-gray-500">
+            <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500">
               <span className="flex items-center gap-1">
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                 All Systems Operational

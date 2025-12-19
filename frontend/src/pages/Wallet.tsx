@@ -80,7 +80,7 @@ const Wallet: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-4xl font-bold mb-2">Wallet</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">Wallet</h1>
           <p className="text-gray-600 dark:text-gray-400">
             Manage your virtual funds
           </p>
@@ -88,10 +88,10 @@ const Wallet: React.FC = () => {
 
         {/* Balance Card */}
         <Card className="mb-6">
-          <div className="text-center py-8">
-            <DollarSign className="w-16 h-16 mx-auto text-primary-600 mb-4" />
-            <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">Available Balance</div>
-            <div className="text-5xl font-bold mb-8">${user?.balance.toLocaleString()}</div>
+          <div className="text-center py-6 sm:py-8">
+            <DollarSign className="w-12 h-12 sm:w-16 sm:h-16 mx-auto text-primary-600 mb-3 sm:mb-4" />
+            <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-1 sm:mb-2">Available Balance</div>
+            <div className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 sm:mb-8">${user?.balance.toLocaleString()}</div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
@@ -118,8 +118,8 @@ const Wallet: React.FC = () => {
 
         {/* Info Card */}
         <Card>
-          <h2 className="text-xl font-bold mb-4">Important Information</h2>
-          <ul className="space-y-2 text-gray-600 dark:text-gray-400">
+          <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Important Information</h2>
+          <ul className="space-y-2 text-sm sm:text-base text-gray-600 dark:text-gray-400">
             <li className="flex items-start">
               <span className="mr-2">•</span>
               <span>This is a virtual trading platform. All funds are simulated.</span>

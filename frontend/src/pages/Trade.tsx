@@ -105,7 +105,7 @@ const Trade: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           className="mb-6"
         >
-          <h1 className="text-4xl font-bold mb-2">Trade {symbol}</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">Trade {symbol}</h1>
           <p className="text-gray-600 dark:text-gray-400">
             {currentPrice?.name} Trading Terminal
           </p>
@@ -116,22 +116,22 @@ const Trade: React.FC = () => {
           <div className="lg:col-span-2">
             <Card padding="sm">
               {currentPrice && (
-                <div className="flex items-center justify-between mb-4 p-4">
+                <div className="flex items-center justify-between mb-4 p-3 sm:p-4">
                   <div>
-                    <div className="text-3xl font-bold">
+                    <div className="text-xl sm:text-2xl md:text-3xl font-bold">
                       ${currentPrice.price.toLocaleString()}
                     </div>
-                    <div className="text-gray-600 dark:text-gray-400">
+                    <div className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
                       {currentPrice.name} Price
                     </div>
                   </div>
-                  <div className={`flex items-center space-x-2 text-lg font-semibold ${
+                  <div className={`flex items-center space-x-1 sm:space-x-2 text-sm sm:text-lg font-semibold ${
                     currentPrice.change24h >= 0 ? 'text-green-600' : 'text-red-600'
                   }`}>
                     {currentPrice.change24h >= 0 ? (
-                      <TrendingUp className="w-6 h-6" />
+                      <TrendingUp className="w-4 h-4 sm:w-6 sm:h-6" />
                     ) : (
-                      <TrendingDown className="w-6 h-6" />
+                      <TrendingDown className="w-4 h-4 sm:w-6 sm:h-6" />
                     )}
                     <span>{currentPrice.change24h.toFixed(2)}%</span>
                   </div>
@@ -144,7 +144,7 @@ const Trade: React.FC = () => {
           {/* Trading Panel */}
           <div>
             <Card>
-              <h2 className="text-2xl font-bold mb-6">Place Order</h2>
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Place Order</h2>
 
               {!isAuthenticated ? (
                 <div className="text-center py-8">
@@ -182,9 +182,9 @@ const Trade: React.FC = () => {
                   </div>
 
                   {/* Balance Info */}
-                  <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                    <div className="text-sm text-gray-600 dark:text-gray-400">Available Balance</div>
-                    <div className="text-2xl font-bold">${user?.balance.toLocaleString()}</div>
+                  <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Available Balance</div>
+                    <div className="text-xl sm:text-2xl font-bold">${user?.balance.toLocaleString()}</div>
                   </div>
 
                   {/* Order Form */}

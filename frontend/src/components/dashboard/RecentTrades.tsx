@@ -68,11 +68,11 @@ const RecentTrades = ({ trades, maxItems = 5 }: RecentTradesProps) => {
   if (trades.length === 0) {
     return (
       <GlassCard>
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">
           Recent Trades
         </h3>
-        <div className="py-8 text-center">
-          <Clock className="w-12 h-12 mx-auto mb-3 text-gray-300 dark:text-gray-600" />
+        <div className="py-6 sm:py-8 text-center">
+          <Clock className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 text-gray-300 dark:text-gray-600" />
           <p className="text-gray-500 dark:text-gray-400 text-sm">
             No trades yet
           </p>
@@ -89,8 +89,8 @@ const RecentTrades = ({ trades, maxItems = 5 }: RecentTradesProps) => {
 
   return (
     <GlassCard>
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+      <div className="flex items-center justify-between mb-3 sm:mb-4">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
           Recent Trades
         </h3>
         <span className="text-xs text-gray-500 px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-full">
@@ -111,29 +111,29 @@ const RecentTrades = ({ trades, maxItems = 5 }: RecentTradesProps) => {
             <motion.div
               key={trade._id}
               variants={itemVariants}
-              className="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer"
+              className="flex items-center justify-between p-2 sm:p-3 rounded-lg sm:rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer"
               onClick={() => navigate(`/trade?symbol=${trade.symbol}`)}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3">
                 {/* Icon */}
                 <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                  className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ${
                     isBuy
                       ? 'bg-green-100 dark:bg-green-900/30'
                       : 'bg-red-100 dark:bg-red-900/30'
                   }`}
                 >
                   {isBuy ? (
-                    <ArrowUpRight className="w-5 h-5 text-green-600" />
+                    <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
                   ) : (
-                    <ArrowDownRight className="w-5 h-5 text-red-600" />
+                    <ArrowDownRight className="w-4 h-4 sm:w-5 sm:h-5 text-red-600" />
                   )}
                 </div>
 
                 {/* Info */}
                 <div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold text-gray-900 dark:text-white">
+                  <div className="flex items-center gap-1 sm:gap-2">
+                    <span className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">
                       {trade.symbol}
                     </span>
                     <span
@@ -146,7 +146,7 @@ const RecentTrades = ({ trades, maxItems = 5 }: RecentTradesProps) => {
                       {trade.type.toUpperCase()}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                  <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">
                     {trade.amount.toFixed(4)} @ {formatCurrency(trade.price)}
                   </p>
                 </div>
@@ -154,10 +154,10 @@ const RecentTrades = ({ trades, maxItems = 5 }: RecentTradesProps) => {
 
               {/* Value & Time */}
               <div className="text-right">
-                <p className="font-semibold text-gray-900 dark:text-white">
+                <p className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">
                   {formatCurrency(trade.total)}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">
                   {formatDate(trade.createdAt)}
                 </p>
               </div>

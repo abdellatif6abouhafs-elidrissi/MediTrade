@@ -47,7 +47,7 @@ const Prices: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-4xl font-bold mb-2">Cryptocurrency Prices</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">Cryptocurrency Prices</h1>
           <p className="text-gray-600 dark:text-gray-400">
             Live prices updated every 5 seconds
           </p>
@@ -81,7 +81,7 @@ const Prices: React.FC = () => {
         </Card>
 
         {/* Price Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {filteredPrices.map((coin, index) => (
             <motion.div
               key={coin.symbol}
@@ -92,8 +92,8 @@ const Prices: React.FC = () => {
               <Card hover className="cursor-pointer" onClick={() => navigate(`/trade?symbol=${coin.symbol}`)}>
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <div className="text-2xl font-bold">{coin.symbol}</div>
-                    <div className="text-gray-600 dark:text-gray-400">{coin.name}</div>
+                    <div className="text-xl sm:text-2xl font-bold">{coin.symbol}</div>
+                    <div className="text-sm sm:text-base text-gray-600 dark:text-gray-400">{coin.name}</div>
                   </div>
                   <div className={`flex items-center space-x-1 px-3 py-1 rounded-full ${
                     coin.change24h >= 0
@@ -111,19 +111,19 @@ const Prices: React.FC = () => {
 
                 <div className="space-y-2">
                   <div>
-                    <div className="text-3xl font-bold text-primary-600">
+                    <div className="text-2xl sm:text-3xl font-bold text-primary-600">
                       ${coin.price.toLocaleString()}
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                  <div className="grid grid-cols-2 gap-2 sm:gap-4 pt-3 sm:pt-4 border-t border-gray-200 dark:border-gray-700">
                     <div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">24h Volume</div>
-                      <div className="font-semibold">${(coin.volume24h / 1000000).toFixed(1)}M</div>
+                      <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">24h Volume</div>
+                      <div className="text-sm sm:text-base font-semibold">${(coin.volume24h / 1000000).toFixed(1)}M</div>
                     </div>
                     <div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">Market Cap</div>
-                      <div className="font-semibold">${(coin.marketCap / 1000000000).toFixed(1)}B</div>
+                      <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Market Cap</div>
+                      <div className="text-sm sm:text-base font-semibold">${(coin.marketCap / 1000000000).toFixed(1)}B</div>
                     </div>
                   </div>
                 </div>

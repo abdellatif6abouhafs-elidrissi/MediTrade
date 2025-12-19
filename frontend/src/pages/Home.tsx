@@ -49,11 +49,11 @@ const Home: React.FC = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
                 Trade Crypto{' '}
                 <span className="gradient-text">Without Risk</span>
               </h1>
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
+              <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8">
                 Learn cryptocurrency trading with our advanced simulation platform. Practice with $100,000 virtual money and master the markets.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -68,18 +68,18 @@ const Home: React.FC = () => {
                   </Button>
                 </Link>
               </div>
-              <div className="mt-8 flex items-center space-x-8 text-sm text-gray-600 dark:text-gray-400">
-                <div>
-                  <div className="text-2xl font-bold text-primary-600">$100K</div>
-                  <div>Virtual Balance</div>
+              <div className="mt-6 sm:mt-8 grid grid-cols-3 gap-2 sm:gap-4 md:gap-8 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+                <div className="text-center sm:text-left">
+                  <div className="text-lg sm:text-xl md:text-2xl font-bold text-blue-500">$100K</div>
+                  <div className="text-xs sm:text-sm">Virtual Balance</div>
                 </div>
-                <div>
-                  <div className="text-2xl font-bold text-primary-600">10+</div>
-                  <div>Cryptocurrencies</div>
+                <div className="text-center sm:text-left">
+                  <div className="text-lg sm:text-xl md:text-2xl font-bold text-blue-500">10+</div>
+                  <div className="text-xs sm:text-sm">Cryptocurrencies</div>
                 </div>
-                <div>
-                  <div className="text-2xl font-bold text-primary-600">24/7</div>
-                  <div>Trading</div>
+                <div className="text-center sm:text-left">
+                  <div className="text-lg sm:text-xl md:text-2xl font-bold text-blue-500">24/7</div>
+                  <div className="text-xs sm:text-sm">Trading</div>
                 </div>
               </div>
             </motion.div>
@@ -89,28 +89,28 @@ const Home: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="relative"
             >
-              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="flex items-center justify-between p-3 sm:p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
                     <div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">BTC/USD</div>
-                      <div className="text-2xl font-bold">$43,250.75</div>
+                      <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">BTC/USD</div>
+                      <div className="text-lg sm:text-xl md:text-2xl font-bold">$43,250.75</div>
                     </div>
-                    <div className="text-green-600 font-bold">+2.5%</div>
+                    <div className="text-green-600 font-bold text-sm sm:text-base">+2.5%</div>
                   </div>
-                  <div className="flex items-center justify-between p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                  <div className="flex items-center justify-between p-3 sm:p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
                     <div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">ETH/USD</div>
-                      <div className="text-2xl font-bold">$2,280.50</div>
+                      <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">ETH/USD</div>
+                      <div className="text-lg sm:text-xl md:text-2xl font-bold">$2,280.50</div>
                     </div>
-                    <div className="text-red-600 font-bold">-1.2%</div>
+                    <div className="text-red-600 font-bold text-sm sm:text-base">-1.2%</div>
                   </div>
-                  <div className="flex items-center justify-between p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                  <div className="flex items-center justify-between p-3 sm:p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
                     <div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">SOL/USD</div>
-                      <div className="text-2xl font-bold">$98.45</div>
+                      <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">SOL/USD</div>
+                      <div className="text-lg sm:text-xl md:text-2xl font-bold">$98.45</div>
                     </div>
-                    <div className="text-green-600 font-bold">+5.8%</div>
+                    <div className="text-green-600 font-bold text-sm sm:text-base">+5.8%</div>
                   </div>
                 </div>
               </div>
@@ -128,8 +128,8 @@ const Home: React.FC = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold mb-4">Why Choose MediTrade?</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Why Choose MediTrade?</h2>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400">
               Everything you need to master cryptocurrency trading
             </p>
           </motion.div>
@@ -161,10 +161,10 @@ const Home: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold text-white mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
               Ready to Start Trading?
             </h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-blue-100 mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
               Join thousands of traders learning and practicing their skills on MediTrade
             </p>
             <Link to="/register">

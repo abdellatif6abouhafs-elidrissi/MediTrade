@@ -25,38 +25,38 @@ const QuickActions = ({
 
   return (
     <GlassCard>
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+      <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">
         Quick Actions
       </h3>
 
       {/* Balance Display */}
-      <div className="bg-gradient-to-br from-primary-500/10 to-purple-500/10 rounded-xl p-4 mb-4">
-        <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">
+      <div className="bg-gradient-to-br from-primary-500/10 to-purple-500/10 rounded-xl p-3 sm:p-4 mb-3 sm:mb-4">
+        <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-0.5 sm:mb-1">
           Available Balance
         </p>
-        <p className="text-2xl font-bold text-gray-900 dark:text-white">
+        <p className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
           {formatCurrency(balance)}
         </p>
       </div>
 
       {/* Action Buttons */}
-      <div className="grid grid-cols-2 gap-3 mb-6">
+      <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-4 sm:mb-6">
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => navigate('/wallet')}
-          className="flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl font-medium shadow-lg shadow-green-500/20 quick-action-btn"
+          className="flex items-center justify-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg sm:rounded-xl font-medium text-sm sm:text-base shadow-lg shadow-green-500/20 quick-action-btn"
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="w-3 h-3 sm:w-4 sm:h-4" />
           Deposit
         </motion.button>
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => navigate('/wallet')}
-          className="flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl font-medium shadow-lg shadow-orange-500/20 quick-action-btn"
+          className="flex items-center justify-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg sm:rounded-xl font-medium text-sm sm:text-base shadow-lg shadow-orange-500/20 quick-action-btn"
         >
-          <Minus className="w-4 h-4" />
+          <Minus className="w-3 h-3 sm:w-4 sm:h-4" />
           Withdraw
         </motion.button>
       </div>

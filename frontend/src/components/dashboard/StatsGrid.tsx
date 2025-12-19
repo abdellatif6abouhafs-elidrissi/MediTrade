@@ -43,12 +43,12 @@ const itemVariants = {
 const StatsGrid = ({ stats, isLoading = false }: StatsGridProps) => {
   if (isLoading) {
     return (
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-4">
         {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="glass-card p-4 space-y-3">
-            <div className="skeleton w-10 h-10 rounded-xl" />
-            <div className="skeleton h-3 w-20" />
-            <div className="skeleton h-6 w-24" />
+          <div key={i} className="glass-card p-3 sm:p-4 space-y-2 sm:space-y-3">
+            <div className="skeleton w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl" />
+            <div className="skeleton h-2 sm:h-3 w-16 sm:w-20" />
+            <div className="skeleton h-4 sm:h-6 w-20 sm:w-24" />
           </div>
         ))}
       </div>
@@ -134,29 +134,29 @@ const StatsGrid = ({ stats, isLoading = false }: StatsGridProps) => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"
+      className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-4"
     >
       {statCards.map((stat) => (
         <motion.div key={stat.title} variants={itemVariants}>
           <GlassCard className="stat-card" padding="md">
             {/* Icon */}
             <div
-              className={`w-10 h-10 rounded-xl bg-gradient-to-br ${stat.iconBg} flex items-center justify-center mb-3`}
+              className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-gradient-to-br ${stat.iconBg} flex items-center justify-center mb-2 sm:mb-3`}
             >
-              <stat.icon className={`w-5 h-5 ${stat.iconColor}`} />
+              <stat.icon className={`w-4 h-4 sm:w-5 sm:h-5 ${stat.iconColor}`} />
             </div>
 
             {/* Title */}
-            <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">
+            <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-0.5 sm:mb-1">
               {stat.title}
             </p>
 
             {/* Value */}
-            <p className={`text-xl font-bold ${stat.valueColor}`}>{stat.value}</p>
+            <p className={`text-base sm:text-xl font-bold ${stat.valueColor}`}>{stat.value}</p>
 
             {/* Subtitle */}
             {stat.subtitle && (
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 mt-0.5 sm:mt-1">
                 {stat.subtitle}
               </p>
             )}

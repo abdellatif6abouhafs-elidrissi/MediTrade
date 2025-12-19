@@ -32,7 +32,7 @@ const HeroSection = ({
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="relative overflow-hidden rounded-3xl gradient-hero p-8 md:p-10"
+      className="relative overflow-hidden rounded-2xl sm:rounded-3xl gradient-hero p-4 sm:p-6 md:p-8 lg:p-10"
     >
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden">
@@ -47,10 +47,10 @@ const HeroSection = ({
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
-          className="flex items-center gap-2 mb-6"
+          className="flex items-center gap-2 mb-4 sm:mb-6"
         >
-          <Sparkles className="w-5 h-5 text-yellow-400" />
-          <span className="text-white/80 text-lg">
+          <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400" />
+          <span className="text-white/80 text-sm sm:text-base md:text-lg">
             {getGreeting()}, <span className="font-semibold text-white">{userName}</span>
           </span>
         </motion.div>
@@ -60,13 +60,13 @@ const HeroSection = ({
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="mb-8"
+          className="mb-6 sm:mb-8"
         >
-          <p className="text-white/60 text-sm uppercase tracking-wider mb-2">
+          <p className="text-white/60 text-xs sm:text-sm uppercase tracking-wider mb-1 sm:mb-2">
             Total Portfolio Value
           </p>
-          <div className="flex items-baseline gap-4 flex-wrap">
-            <span className="text-5xl md:text-7xl font-black text-white tracking-tight">
+          <div className="flex items-baseline gap-2 sm:gap-4 flex-wrap">
+            <span className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-white tracking-tight">
               <AnimatedCounter
                 value={totalValue}
                 prefix="$"
@@ -78,22 +78,22 @@ const HeroSection = ({
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.6 }}
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-full ${
+              className={`flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm ${
                 isPositive
                   ? 'bg-green-500/20 text-green-400'
                   : 'bg-red-500/20 text-red-400'
               }`}
             >
               {isPositive ? (
-                <TrendingUp className="w-4 h-4" />
+                <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4" />
               ) : (
-                <TrendingDown className="w-4 h-4" />
+                <TrendingDown className="w-3 h-3 sm:w-4 sm:h-4" />
               )}
               <span className="font-semibold">
                 {isPositive ? '+' : ''}
                 {dailyChange.toFixed(2)}%
               </span>
-              <span className="text-white/60 text-xs">24h</span>
+              <span className="text-white/60 text-[10px] sm:text-xs">24h</span>
             </motion.div>
           </div>
         </motion.div>
@@ -148,10 +148,10 @@ const PeriodStat = ({ label, value }: { label: string; value: number }) => {
   const isPositive = value >= 0;
 
   return (
-    <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-      <p className="text-white/50 text-xs mb-1">{label}</p>
+    <div className="bg-white/5 backdrop-blur-sm rounded-lg sm:rounded-xl p-2 sm:p-3 md:p-4 border border-white/10">
+      <p className="text-white/50 text-[10px] sm:text-xs mb-0.5 sm:mb-1">{label}</p>
       <p
-        className={`text-lg md:text-xl font-bold ${
+        className={`text-sm sm:text-base md:text-lg lg:text-xl font-bold ${
           isPositive ? 'text-green-400' : 'text-red-400'
         }`}
       >
