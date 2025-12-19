@@ -82,18 +82,18 @@ const NotificationBell = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="absolute right-0 mt-2 w-80 glass-card overflow-hidden z-50 shadow-xl"
+              className="fixed sm:absolute left-2 right-2 sm:left-auto sm:right-0 top-16 sm:top-auto sm:mt-2 w-auto sm:w-80 glass-card overflow-hidden z-50 shadow-xl"
             >
               {/* Header */}
-              <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700/50">
-                <h3 className="font-semibold text-gray-900 dark:text-white">
+              <div className="flex items-center justify-between p-3 sm:p-4 border-b border-gray-200 dark:border-gray-700/50">
+                <h3 className="font-semibold text-gray-900 dark:text-white text-sm sm:text-base">
                   Notifications
                 </h3>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 sm:gap-2">
                   {count > 0 && (
                     <button
                       onClick={() => markAllAsRead()}
-                      className="text-xs text-primary-600 hover:text-primary-700 font-medium"
+                      className="text-xs text-primary-600 hover:text-primary-700 font-medium px-2 py-1"
                     >
                       Mark all read
                     </button>
@@ -101,7 +101,7 @@ const NotificationBell = () => {
                   {notifications.length > 0 && (
                     <button
                       onClick={() => clearAll()}
-                      className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                      className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
                     >
                       <Trash2 className="w-4 h-4 text-gray-400" />
                     </button>
@@ -110,11 +110,11 @@ const NotificationBell = () => {
               </div>
 
               {/* Notifications List */}
-              <div className="max-h-96 overflow-y-auto custom-scrollbar">
+              <div className="max-h-[60vh] sm:max-h-96 overflow-y-auto custom-scrollbar">
                 {notifications.length === 0 ? (
-                  <div className="p-8 text-center">
-                    <Bell className="w-12 h-12 mx-auto mb-3 text-gray-300 dark:text-gray-600" />
-                    <p className="text-gray-500 dark:text-gray-400 text-sm">
+                  <div className="p-6 sm:p-8 text-center">
+                    <Bell className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 text-gray-300 dark:text-gray-600" />
+                    <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm">
                       No notifications yet
                     </p>
                   </div>
@@ -125,35 +125,35 @@ const NotificationBell = () => {
                         key={notif.id}
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className={`p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors ${
+                        className={`p-3 sm:p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors ${
                           !notif.read ? 'bg-primary-50/50 dark:bg-primary-900/10' : ''
                         }`}
                       >
-                        <div className="flex gap-3">
-                          <span className="text-xl">{getNotificationIcon(notif.type)}</span>
+                        <div className="flex gap-2 sm:gap-3">
+                          <span className="text-lg sm:text-xl flex-shrink-0">{getNotificationIcon(notif.type)}</span>
                           <div className="flex-1 min-w-0">
-                            <p className="font-medium text-gray-900 dark:text-white text-sm">
+                            <p className="font-medium text-gray-900 dark:text-white text-xs sm:text-sm">
                               {notif.title}
                             </p>
-                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 truncate">
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2 sm:truncate">
                               {notif.message}
                             </p>
                             <p className="text-xs text-gray-400 mt-1">
                               {formatTime(notif.createdAt)}
                             </p>
                           </div>
-                          <div className="flex flex-col gap-1">
+                          <div className="flex flex-col gap-1 flex-shrink-0">
                             {!notif.read && (
                               <button
                                 onClick={() => markAsRead(notif.id)}
-                                className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
+                                className="p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
                               >
                                 <Check className="w-3 h-3 text-gray-400" />
                               </button>
                             )}
                             <button
                               onClick={() => removeNotification(notif.id)}
-                              className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
+                              className="p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
                             >
                               <X className="w-3 h-3 text-gray-400" />
                             </button>
